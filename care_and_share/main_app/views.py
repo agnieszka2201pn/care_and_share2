@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from django.shortcuts import render
@@ -5,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import FormView
 
+from accounts.models import CustomUser
 from main_app.forms import RegisterForm
 from main_app.models import Institution, Donation
 
@@ -30,13 +33,36 @@ class LandingPage(View):
 
 class AddDonation(View):
     def get(self, request):
-        return render(request, 'main_app/form.html')
+        user = request.user
+        if user.is_authenticated:
+            context = {'user':user}
+            return render(request, 'main_app/form.html', context)
+        else:
+            return render(request, 'main_app/form.html')
 
 
 class Login(View):
     def get(self, request):
         return render(request, 'main_app/login.html')
 
+    def post(self,request):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user1 = authenticate(email=email,password=password)
+        if user1:
+            login(request,user1)
+            return HttpResponseRedirect('/index/')
+        else:
+            return HttpResponseRedirect('/register/')
+
+
+class Logout(View):
+    def get(self,request):
+        return render(request, 'main_app/logout.html')
+
+    def post(self, request):
+        logout(request)
+        return HttpResponseRedirect('/index/')
 
 # class Register(View):
 #     def get(self, request):
@@ -48,7 +74,10 @@ class Register(FormView):
     form_class = RegisterForm
     success_url = reverse_lazy('Login')
     def form_valid(self, form):
-        form.save()
+        cd = form.cleaned_data
+        user = CustomUser.objects.create(first_name=cd['first_name'], surname=cd['surname'], email=cd['email'])
+        user.set_password(cd['password'])
+        user.save()
         return super().form_valid(form)
 
 
