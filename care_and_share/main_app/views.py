@@ -9,7 +9,7 @@ from django.views.generic import FormView
 
 from accounts.models import CustomUser
 from main_app.forms import RegisterForm
-from main_app.models import Institution, Donation
+from main_app.models import Institution, Donation, Category
 
 
 class LandingPage(View):
@@ -33,12 +33,14 @@ class LandingPage(View):
 
 class AddDonation(View):
     def get(self, request):
+        categories = Category.objects.all()
+        institutions = Institution.objects.all()
         user = request.user
         if user.is_authenticated:
-            context = {'user':user}
+            context = {'user':user, 'categories':categories, 'institutions':institutions}
             return render(request, 'main_app/form.html', context)
         else:
-            return render(request, 'main_app/form.html')
+            return HttpResponse('załóż konto lub zaloguj się')
 
 
 class Login(View):
