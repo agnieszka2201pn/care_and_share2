@@ -9,9 +9,9 @@ class Category(models.Model):
 
 
 types = (
-    (0, 'fundacja'),
-    (1, 'organizacja pozarządowa'),
-    (2, 'zbiórka lokalna'),
+    (0, 'Fundacja'),
+    (1, 'Organizacja pozarządowa'),
+    (2, 'Zbiórka lokalna'),
 )
 
 
@@ -20,6 +20,12 @@ class Institution(models.Model):
     description = models.TextField()
     type = models.IntegerField(choices=types, default=0)
     categories = models.ManyToManyField(Category)
+
+    class Meta:
+        ordering = ('name',)
+
+    def __str__(self):
+        return f'{self.get_type_display()}: {self.name}. Opis: {self.description}'
 
 
 class Donation(models.Model):

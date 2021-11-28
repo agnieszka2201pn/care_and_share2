@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView
 
 from accounts.models import CustomUser
 from main_app.forms import RegisterForm
@@ -14,6 +14,7 @@ from main_app.models import Institution, Donation, Category
 
 class LandingPage(View):
     def get(self,request):
+        user = request.user
         donations = Donation.objects.all()
         bags_count = 0
         for donation in donations:
@@ -27,6 +28,7 @@ class LandingPage(View):
                    'foundations':foundations,
                    'ngos':ngos,
                    'foundraisings':foundraisings,
+                   'user':user,
                    }
         return render(request, 'main_app/index.html', context)
 
@@ -81,6 +83,14 @@ class Register(FormView):
         user.set_password(cd['password'])
         user.save()
         return super().form_valid(form)
+
+
+class UserDetails(DetailView):
+    model = CustomUser
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user.pk'] = self.kwargs['pk']
+        return context
 
 
 

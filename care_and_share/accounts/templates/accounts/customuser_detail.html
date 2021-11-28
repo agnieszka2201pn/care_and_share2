@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container--90">
+<h1> Witaj {{ user.first_name }} !</h1>
+    <h1> Oto Twoje dane:</h1>
+    <h1> Numer użytkownika: {{ user.pk }}</h1>
+    <h1> Imię: {{ user.first_name }}</h1>
+    <h1> Nazwisko: {{ user.surname }}</h1>
+    <h1> Email: {{ user.email }} </h1>
+    <h1> Data utworzenia konta: {{ user.date_joined }} </h1>
+        {% for donation in user.donation_set.all %}
+    <h1> Wsparte organizacje: {{ donation.institution }}, {{ donation.quantity }} worków </h1>
+        {% empty %}
+       <h1> Jeszcze nie wsparłeś żadnej organizacji.</h1>
+        {% endfor %}
+
+</div>
+{% endblock %}

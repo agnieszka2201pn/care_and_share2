@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main_app.views import LandingPage, AddDonation, Login, Register, Logout
+from main_app.views import LandingPage, AddDonation, Login, Register, Logout, UserDetails
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('login/', Login.as_view(), name='Login'),
     path('register/', Register.as_view(), name='Register'),
     path('logout/', Logout.as_view(), name='Logout'),
+    path('user_details/<int:pk>/', UserDetails.as_view(), name='User Details'),
 ]
