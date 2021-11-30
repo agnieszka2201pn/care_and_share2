@@ -5,7 +5,8 @@ from django.utils import timezone
 
 from accounts.managers import CustomUserManager
 
-
+# można nazwać po prostu "user"
+# można dziedziczyć z AbstractUser i np username = None
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=64, verbose_name='Imię')
     surname = models.CharField(max_length=64, verbose_name='Nazwisko')
@@ -21,6 +22,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
+    # UserManager
 
     def __str__(self):
         return self.email

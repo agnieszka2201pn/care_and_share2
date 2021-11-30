@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
       // TODO: get data from inputs and show them in summary
+
     }
 
     /**
@@ -254,3 +255,41 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+
+//
+// function handleButton() {
+//     const button = document.querySelector('#next-step-button')
+//
+//     handleClick = function(event){
+//
+//     }
+
+//     button.addEventListener('click', handleClick)
+//
+// }
+
+      //mój kod:
+    //   if (this.currentStep===5){
+    //     const formData = new FormData(document.querySelector('form'));
+    //     const categories = formData.get('categories');
+    //     const bags = formData.get('bags');
+    //     this.$form.getElementById('summary').innerText = bags + 'x worek' + categories;
+    //     const foundation = formData.get('organization');
+    //     this.$form.getElementById('organization').innerText = 'Dla fundacji:' + foundation;
+    //     const street = formData.get('address');
+//         const city = formData.get('city');
+//         const zip_code = formData.get('postcode');
+//         const phone = formData.get('phone');
+//         this.$form.getElementById('address').innerText = street + city + zip_code + phone;
+    //     const date = formData.get('data');
+//         const time = formData.get('time');
+//         const more_info = formData.get('more_info');
+//         this.$form.getElementById('pick_up_date).innerText = date + time + more_info;
+//
+    //   };
+    //
+    //
+    //   };
+    // }
+    //class FormData - wyciąga wszystkie inputy z formularza
+    //FormData serialize - poszukać na mozilli (how to get values from FormData)
