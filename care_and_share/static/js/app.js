@@ -234,6 +234,25 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
+      if (this.currentStep===5){
+        const formData = new FormData(document.querySelector('form'));
+        this.formData = formData;
+        const categories = formData.get('categories');
+        const bags = formData.get('bags');
+        document.getElementById('summary').innerText = 'x ' + bags + ', Kategoria: ' + categories;
+        const foundation = formData.get('organization');
+        document.getElementById('organization').innerText = 'Dla fundacji: ' + foundation;
+        const street = formData.get('address');
+        const city = formData.get('city');
+        const zip_code = formData.get('postcode');
+        const phone = formData.get('phone');
+        document.getElementById('address').innerText = 'Adres odbioru: ' + '\n' + street + '\n' + city + '\n'+ zip_code + '\n' + phone;
+        const date = formData.get('data');
+        const time = formData.get('time');
+        const more_info = formData.get('more_info');
+        document.getElementById('pick_up_date').innerText = 'Termin odbioru: ' + '\n' + date + '\n' + time + '\n' + more_info;
+      };
+
       // TODO: get data from inputs and show them in summary
 
     }
@@ -247,6 +266,7 @@ document.addEventListener("DOMContentLoaded", function() {
       e.preventDefault();
       this.currentStep++;
       this.updateForm();
+      this.formData();
     }
   }
   const form = document.querySelector(".form--steps");
@@ -257,16 +277,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 //
-// function handleButton() {
-//     const button = document.querySelector('#next-step-button')
-//
-//     handleClick = function(event){
-//
-//     }
+// fetch('https://example.com/profile/avatar', {
+//   method: 'PUT',
+//   body: formData
+// })
+// .then(response => response.json())
+// .then(result => {
+//   console.log('Success:', result);
+// })
+// .catch(error => {
+//   console.error('Error:', error);
+// });
 
-//     button.addEventListener('click', handleClick)
-//
-// }
+
+
+
+
+  // function handleButton() {
+  //     const button = document.querySelector('#next-step-button')
+  //
+  //     handleClick = function(event){
+  //       const formData = new FormData(document.querySelector('form'));
+  //       const categories = formData.get('categories');
+  //       const bags = formData.get('bags');
+  //       this.$form.getElementById('summary').innerText = bags + 'x worek' + categories;
+  //       const foundation = formData.get('organization');
+  //       this.$form.getElementById('organization').innerText = 'Dla fundacji:' + foundation;
+  //       const street = formData.get('address');
+  //       const city = formData.get('city');
+  //       const zip_code = formData.get('postcode');
+  //       const phone = formData.get('phone');
+  //       this.$form.getElementById('address').innerText = street + city + zip_code + phone;
+  //       const date = formData.get('data');
+  //       const time = formData.get('time');
+  //       const more_info = formData.get('more_info');
+  //       this.$form.getElementById('pick_up_date).innerText = date + time + more_info;
+  //     };
+  //     button.addEventListener('click', handleClick)
+  //     };
+  // handleButton()
 
       //mój kod:
     //   if (this.currentStep===5){

@@ -90,10 +90,10 @@
                 <input
                   type="checkbox"
                   name="categories"
-                  value={{ category.id }}
+                  value='{{ category.name }}'
                 />
                 <span class="checkbox"></span>
-                <span class="description"
+                <span class="description" id="category_name"
                   >{{ category.name }}</span
                 >
               </label>
@@ -129,10 +129,10 @@
               {% for institution in institutions %}
             <div class="form-group form-group--checkbox">
               <label>
-                <input type="radio" name="organization" value="old" />
+                <input type="radio" name="organization" value="{{ institution.name }}"/>
                 <span class="checkbox radio"></span>
                 <span class="description">
-                  <div class="title"> {{ institution.get_type_display }} {{ institution.name }}</div>
+                  <div class="title" id="institution_details"> {{ institution.get_type_display }} {{ institution.name }}</div>
                   <div class="subtitle">
                     {{ institution.description}}
                   </div>
