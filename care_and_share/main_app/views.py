@@ -45,6 +45,39 @@ class AddDonation(View):
             return HttpResponse('załóż konto lub zaloguj się')
 
 
+    def post(self, request):
+        quantity = int(request.POST.get('bags'))
+        categories = request.POST.getlist('categories')
+        # tu coś nie działa. Jak wyciągnąć listę kategorii?
+        institution_name = request.POST.get('organization')
+        institution = Institution.objects.get(name=institution_name)
+        address = request.POST.get('address')
+        phone_number = int(request.POST.get('phone'))
+        city = request.POST.get('city')
+        zip_code = request.POST.get('postcode')
+        pick_up_date = request.POST.get('data')
+        pick_up_comment = request.POST.get('more_info')
+        user = request.user
+
+        if quantity and categories and institution and address and phone_number and city and zip_code and pick_up_comment and pick_up_date and user:
+            new_donation = Donation.objects.create(quantity=quantity,
+                                    institution=institution,
+                                    address = address,
+                                    phone_number=phone_number,
+                                    city=city,
+                                    zip_code=zip_code,
+                                    pick_up_date=pick_up_date,
+                                    pick_up_comment=pick_up_comment,
+                                    user = user)
+            # to też nie działa
+            # new_donation.categories.set(categories)
+
+            return render(request, 'main_app/form-confirmation.html')
+
+        else:
+            return HttpResponse('Proszę wprowadzić poprawne dane')
+
+
 class Login(View):
     def get(self, request):
         return render(request, 'main_app/login.html')

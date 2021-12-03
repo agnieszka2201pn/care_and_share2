@@ -262,12 +262,12 @@ document.addEventListener("DOMContentLoaded", function() {
      *
      * TODO: validation, send data to server
      */
-    submit(e) {
-      e.preventDefault();
-      this.currentStep++;
-      this.updateForm();
-      this.formData();
-    }
+    // submit(e) {
+    //   e.preventDefault();
+    //   this.currentStep++;
+    //   this.updateForm();
+    //   // this.formData;
+    // }
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
@@ -275,9 +275,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-
+// const formData = new FormData(document.querySelector('form'))
 //
-// fetch('https://example.com/profile/avatar', {
+// fetch("http://127.0.0.1:8000/share/", {
 //   method: 'PUT',
 //   body: formData
 // })
