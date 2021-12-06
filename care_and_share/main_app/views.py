@@ -4,8 +4,10 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import FormView, DetailView
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import FormView, DetailView, UpdateView
 
 from accounts.models import CustomUser
 from main_app.forms import RegisterForm
@@ -33,6 +35,7 @@ class LandingPage(View):
         return render(request, 'main_app/index.html', context)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class AddDonation(View):
     def get(self, request):
         categories = Category.objects.all()
@@ -46,37 +49,41 @@ class AddDonation(View):
 
 
     def post(self, request):
+        categories_names = request.POST.getlist('categories')
+        categories = []
+        for category in categories_names:
+            categories.append(Category.objects.get(name=category))
         quantity = int(request.POST.get('bags'))
-        categories = request.POST.getlist('categories')
-        # tu coś nie działa. Jak wyciągnąć listę kategorii?
         institution_name = request.POST.get('organization')
         institution = Institution.objects.get(name=institution_name)
         address = request.POST.get('address')
-        phone_number = int(request.POST.get('phone'))
+        phone_number = request.POST.get('phone')
         city = request.POST.get('city')
         zip_code = request.POST.get('postcode')
         pick_up_date = request.POST.get('data')
+        # pick_up_time = request.POST.get('time')
         pick_up_comment = request.POST.get('more_info')
         user = request.user
 
-        if quantity and categories and institution and address and phone_number and city and zip_code and pick_up_comment and pick_up_date and user:
-            new_donation = Donation.objects.create(quantity=quantity,
-                                    institution=institution,
-                                    address = address,
-                                    phone_number=phone_number,
-                                    city=city,
-                                    zip_code=zip_code,
-                                    pick_up_date=pick_up_date,
-                                    pick_up_comment=pick_up_comment,
-                                    user = user)
-            # to też nie działa
-            # new_donation.categories.set(categories)
+        new_donation = Donation.objects.create(quantity=quantity,
+                                              institution=institution,
+                                              address=address,
+                                              phone_number=phone_number,
+                                              city=city,
+                                              zip_code=zip_code,
+                                              pick_up_date=pick_up_date,
+                                              # pick_up_time=pick_up_time,
+                                              pick_up_comment=pick_up_comment,
+                                              user=user)
 
-            return render(request, 'main_app/form-confirmation.html')
+        new_donation.categories.set(categories)
 
-        else:
-            return HttpResponse('Proszę wprowadzić poprawne dane')
+        return render(request, 'main_app/form-confirmation.html')
 
+
+class Confirmation(View):
+    def get(self, request):
+        return render(request, 'main_app/form-confirmation.html')
 
 class Login(View):
     def get(self, request):
@@ -126,5 +133,12 @@ class UserDetails(DetailView):
         return context
 
 
-
-
+class UserDetailsUpdate(UpdateView):
+    model = CustomUser
+    fields = ['first_name', 'surname', 'email']
+    template_name_suffix = '_update_form'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user.pk']=self.kwargs['pk']
+        return context
+    success_url = '/index/'

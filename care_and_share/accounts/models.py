@@ -27,4 +27,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-
+# class User(AbstractUser, PermissionsMixin):
+#         username = None
+#         email = models.EmailField(max_length=64, unique=True)
+#         password_2 = models.CharField(max_length=64)
+#
+#         USERNAME_FIELD = 'email'
+#         REQUIRED_FIELDS = []
+#
+#         objects = UserManager()

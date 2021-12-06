@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c534a4f-f549-4ad7-842e-e60d54eb59d9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/customuser_update_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/customuser_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/customuser_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/care_and_share/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/care_and_share/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_app/templates/main_app/form-confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/main_app/templates/main_app/form-confirmation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_app/templates/main_app/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/main_app/templates/main_app/form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_app/templates/main_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/main_app/templates/main_app/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/app.js" afterDir="false" />
     </list>
@@ -22,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -94,6 +98,8 @@
       <workItem from="1638290159263" duration="8307000" />
       <workItem from="1638460972784" duration="5631000" />
       <workItem from="1638547992415" duration="9515000" />
+      <workItem from="1638706801282" duration="8501000" />
+      <workItem from="1638807226493" duration="10736000" />
     </task>
     <servers />
   </component>

@@ -262,12 +262,21 @@ document.addEventListener("DOMContentLoaded", function() {
      *
      * TODO: validation, send data to server
      */
-    // submit(e) {
-    //   e.preventDefault();
-    //   this.currentStep++;
-    //   this.updateForm();
-    //   // this.formData;
-    // }
+    submit(e) {
+      e.preventDefault();
+      this.currentStep++;
+      this.updateForm();
+
+      const formData = new FormData(document.querySelector('form'));
+
+      return fetch("/share/", {
+        method: 'POST',
+        body: formData,
+
+      })
+      .then(response => response.json())
+      };
+
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
@@ -275,70 +284,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-// const formData = new FormData(document.querySelector('form'))
-//
-// fetch("http://127.0.0.1:8000/share/", {
-//   method: 'PUT',
-//   body: formData
-// })
-// .then(response => response.json())
-// .then(result => {
-//   console.log('Success:', result);
-// })
-// .catch(error => {
-//   console.error('Error:', error);
-// });
+// Gdzie to wstawić???
+// window.location.replace("/confirmation/");
 
-
-
-
-
-  // function handleButton() {
-  //     const button = document.querySelector('#next-step-button')
-  //
-  //     handleClick = function(event){
-  //       const formData = new FormData(document.querySelector('form'));
-  //       const categories = formData.get('categories');
-  //       const bags = formData.get('bags');
-  //       this.$form.getElementById('summary').innerText = bags + 'x worek' + categories;
-  //       const foundation = formData.get('organization');
-  //       this.$form.getElementById('organization').innerText = 'Dla fundacji:' + foundation;
-  //       const street = formData.get('address');
-  //       const city = formData.get('city');
-  //       const zip_code = formData.get('postcode');
-  //       const phone = formData.get('phone');
-  //       this.$form.getElementById('address').innerText = street + city + zip_code + phone;
-  //       const date = formData.get('data');
-  //       const time = formData.get('time');
-  //       const more_info = formData.get('more_info');
-  //       this.$form.getElementById('pick_up_date).innerText = date + time + more_info;
-  //     };
-  //     button.addEventListener('click', handleClick)
-  //     };
-  // handleButton()
-
-      //mój kod:
-    //   if (this.currentStep===5){
-    //     const formData = new FormData(document.querySelector('form'));
-    //     const categories = formData.get('categories');
-    //     const bags = formData.get('bags');
-    //     this.$form.getElementById('summary').innerText = bags + 'x worek' + categories;
-    //     const foundation = formData.get('organization');
-    //     this.$form.getElementById('organization').innerText = 'Dla fundacji:' + foundation;
-    //     const street = formData.get('address');
-//         const city = formData.get('city');
-//         const zip_code = formData.get('postcode');
-//         const phone = formData.get('phone');
-//         this.$form.getElementById('address').innerText = street + city + zip_code + phone;
-    //     const date = formData.get('data');
-//         const time = formData.get('time');
-//         const more_info = formData.get('more_info');
-//         this.$form.getElementById('pick_up_date).innerText = date + time + more_info;
-//
-    //   };
-    //
-    //
-    //   };
-    // }
-    //class FormData - wyciąga wszystkie inputy z formularza
-    //FormData serialize - poszukać na mozilli (how to get values from FormData)
+//class FormData - wyciąga wszystkie inputy z formularza
