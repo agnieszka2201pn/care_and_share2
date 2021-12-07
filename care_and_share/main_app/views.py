@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.urls import reverse
 
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -61,7 +63,6 @@ class AddDonation(View):
         city = request.POST.get('city')
         zip_code = request.POST.get('postcode')
         pick_up_date = request.POST.get('data')
-        # pick_up_time = request.POST.get('time')
         pick_up_comment = request.POST.get('more_info')
         user = request.user
 
@@ -72,13 +73,12 @@ class AddDonation(View):
                                               city=city,
                                               zip_code=zip_code,
                                               pick_up_date=pick_up_date,
-                                              # pick_up_time=pick_up_time,
                                               pick_up_comment=pick_up_comment,
                                               user=user)
 
         new_donation.categories.set(categories)
 
-        return render(request, 'main_app/form-confirmation.html')
+        return JsonResponse({'url': reverse('Confirmation')})
 
 
 class Confirmation(View):
@@ -107,11 +107,6 @@ class Logout(View):
     def post(self, request):
         logout(request)
         return HttpResponseRedirect('/index/')
-
-# class Register(View):
-#     def get(self, request):
-#         return render(request, 'main_app/register.html')
-
 
 class Register(FormView):
     template_name = 'main_app/register.html'
@@ -142,3 +137,4 @@ class UserDetailsUpdate(UpdateView):
         context['user.pk']=self.kwargs['pk']
         return context
     success_url = '/index/'
+
